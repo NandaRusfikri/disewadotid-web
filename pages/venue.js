@@ -45,38 +45,42 @@ export default function Venue({ListVenue}) {
 
                 <div className="mt-6 px-2 grid grid-cols-2 gap-y-10 gap-x-2 sm:grid-cols-2 lg:grid-cols-2 xl:gap-x-2">
                   {ListVenue.map((product) => (
-                      <div key={product.id} className=" group relative">
-                        <div className="border-2 border-slate-600 rounded-md  overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none ">
-                        <div className="lg:h-64 h-40 w-96 relative">
-                            <Image
-                                src={process.env.pathimage+product.path_thumb}
-                                alt="Picture of the author"
-                                layout="fill" // required
-                                objectFit="cover" // change to suit your needs
-                                className="" // just an example
-                            />
-                            {/*<img*/}
-                            {/*    src={process.env.pathimage+product.path_thumb}*/}
-                            {/*    alt={product.imageAlt}*/}
-                            {/*    className=" object-fill object-center object-contain "*/}
-                            {/*/>*/}
-                          </div>
-                          <div className="absolute top-0 px-1 mt-2 rounded-tr-md rounded-br-md  bg-red-700 text-white  text-right ">
-                            {product.category.name}
-                          </div>
-                        </div>
 
-                        <div>
-                          <h2  className=" font-bold text-gray-700">
-                            <a onClick={() => router.push('/product')}>
-                              {product.name}
-                            </a>
-                          </h2>
-                          <p className="text-sm font-bold text-red-700">Rp. {product.price}</p>
-                          <p className="mt-1 text-sm  text-gray-500">{product.city}</p>
-                        </div>
+                      <div
+                          className="max-w-sm  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <Link key={product.id} href={`/product`}>
+                          <div key={product.id} className=" group relative">
+                            <div
+                                className="  overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none ">
 
+                              <div className="lg:h-64 h-40 w-96 relative">
+                                <Image
+                                    src={process.env.pathimage + product.path_thumb}
+                                    alt={"image" + product.name}
+                                    fill
+
+                                />
+
+                              </div>
+                              <div
+                                  className="absolute top-0 px-1 mt-2 rounded-tr-md rounded-br-md  bg-red-700 text-white  text-right ">
+                                {product.category.name}
+                              </div>
+                            </div>
+
+                            <div>
+                              <h2 className=" font-bold text-gray-700">
+                                {product.name}
+
+                              </h2>
+                              <p className="text-sm font-bold text-red-700">Rp. {product.price}</p>
+                              <p className="mt-1 text-sm  text-gray-500">{product.city}</p>
+                            </div>
+
+                          </div>
+                        </Link>
                       </div>
+
                   ))}
                 </div>
 

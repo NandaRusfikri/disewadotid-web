@@ -18,7 +18,7 @@ export default function Navbar() {
     const {user: currentUser, refetchUser} = useCurrentUser();
     const {pathname, query, asPath} = router;
 
-    console.log("pathname", pathname)
+
     return (
 
         <Disclosure as="nav"

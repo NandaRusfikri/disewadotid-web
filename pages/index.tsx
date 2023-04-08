@@ -76,9 +76,10 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
                             <div
                                 className="mt-6 grid grid-cols-2 gap-y-6 gap-x-2 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-3">
                                 {ListVenue.map((product) => (
+
                                     <div
                                         className="max-w-sm  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-
+                                        <Link key={product.id} href={`/product`}>
                                         <div key={product.id} className=" group relative">
                                             <div
                                                 className="  overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none ">
@@ -88,13 +89,9 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
                                                         src={process.env.pathimage + product.path_thumb}
                                                         alt={"image" + product.name}
                                                         fill
-                                                        className="" // just an example
+
                                                     />
-                                                    {/*<img*/}
-                                                    {/*    src={process.env.pathimage+product.path_thumb}*/}
-                                                    {/*    alt={product.imageAlt}*/}
-                                                    {/*    className=" object-fill object-center object-contain "*/}
-                                                    {/*/>*/}
+
                                                 </div>
                                                 <div
                                                     className="absolute top-0 px-1 mt-2 rounded-tr-md rounded-br-md  bg-red-700 text-white  text-right ">
@@ -104,7 +101,7 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
 
                                             <div>
                                                 <h2 className=" font-bold text-gray-700">
-                                                    <Link href={`/product`}>{product.name}</Link>
+                                                    {product.name}
 
                                                 </h2>
                                                 <p className="text-sm font-bold text-red-700">Rp. {product.price}</p>
@@ -112,7 +109,9 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
                                             </div>
 
                                         </div>
+                                        </Link>
                                     </div>
+
                                 ))}
                             </div>
                         </div>

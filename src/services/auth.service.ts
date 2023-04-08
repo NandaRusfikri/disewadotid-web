@@ -3,9 +3,9 @@ import { getAuthorizationHeader } from "../utils/getAuthorizationHeader";
 
 export class AuthService {
   protected readonly instance: AxiosInstance;
-  public constructor(url: string) {
+  public constructor() {
     this.instance = axios.create({
-      baseURL: url,
+      baseURL: process.env.apidomain,
       timeout: 30000,
       timeoutErrorMessage: "Time out!",
     });
