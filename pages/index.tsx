@@ -6,7 +6,7 @@ import {useRouter} from 'next/router'
 import axios from 'axios';
 import Image from 'next/image'
 import Link from "next/link";
-import {number} from "prop-types";
+import Navbar from "@/pages/navbar";
 
 
 
@@ -46,7 +46,7 @@ const Home: React.FC<HomeProps> = ({ ListCategory, ListVenue, error }) => {
           <meta name="viewport" content="width=device-width, initial-scale=1"/>
           <link rel="icon" href="/favicon.ico"/>
         </Head>
-
+<Navbar/>
         <main >
 
 

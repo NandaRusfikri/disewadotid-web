@@ -1,16 +1,16 @@
-
 import Link from "next/link";
 import React, {useRef, useState} from 'react';
 import axios from 'axios';
 import axiosInstance from '../axiosConfig';
 import {useRouter} from 'next/router';
 import Head from "next/head";
+import Navbar from "./navbar";
 
 export async function getStaticProps() {
     try {
 
 
-        const ListCategoryResponse =  await axios.get(process.env.apidomain+'/api/v1/category/list',{});
+        const ListCategoryResponse = await axios.get(process.env.apidomain + '/api/v1/category/list', {});
         const ListCategory = ListCategoryResponse.data.data;
 
         return {props: {ListCategory}};
@@ -19,13 +19,12 @@ export async function getStaticProps() {
         return {props: {ListCategory: []}};
     }
 }
+
 const AddVenue = ({ListCategory}) => {
 
     const router = useRouter();
 
     const [selectedCategory, setCategory] = useState()
-
-
 
 
     const fileInputs = useRef([]); // Ref untuk input file
@@ -67,7 +66,7 @@ const AddVenue = ({ListCategory}) => {
         name: '',
         city: '',
         address: '',
-        price: 0,
+        price: 60000,
         maps_rul: ''
     });
 
@@ -118,9 +117,9 @@ const AddVenue = ({ListCategory}) => {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 
+            <Navbar/>
+
             <main>
-
-
 
 
                 <div className="grid grid-cols-8 gap-2">
@@ -156,7 +155,8 @@ const AddVenue = ({ListCategory}) => {
                                                                 className="w-full h-full object-cover"
                                                             />
                                                         ) : (
-                                                            <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                                            <span
+                                                                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                   Upload Foto
                 </span>
                                                         )}
@@ -187,13 +187,13 @@ const AddVenue = ({ListCategory}) => {
                                                         type="text"
                                                         name="name"
                                                         id="name"
+                                                        placeholder={'Gor Badminton Bintang 5'}
                                                         autoComplete="given-name"
-                                                        className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     />
                                                 </div>
                                             </div>
                                             <div className="sm:col-span-3">
-
 
 
                                                 <label htmlFor="country"
@@ -209,8 +209,9 @@ const AddVenue = ({ListCategory}) => {
                                                             id="country"
                                                             name="country"
                                                             autoComplete="country-name"
-                                                            className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                        <option selected>Choose a Category</option>
+                                                            className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    >
+                                                    <option selected>Choose a Category</option>
 
                                                         {ListCategory.map((category) => (
                                                             <option value={category.id}>{category.name}</option>
@@ -231,8 +232,9 @@ const AddVenue = ({ListCategory}) => {
                                                         type="text"
                                                         name="city"
                                                         id="city"
+                                                        placeholder="Jakarta Selatan"
                                                         autoComplete="address-level2"
-                                                        className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     />
                                                 </div>
                                             </div>
@@ -242,23 +244,24 @@ const AddVenue = ({ListCategory}) => {
                                                        className="block text-sm font-medium leading-6 text-gray-900">
                                                     Harga / jam
                                                 </label>
-                                                <div className="mt-2">
-                                                    <div
-                                                        className="flex rounded-md shadow-sm  sm:max-w-md ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                                                        <span
-                                                            className="flex select-none items-center pl-3 text-gray-900  sm:text-sm">Rp.</span>
-                                                        <input
-                                                            value={formValue.price}
-                                                            onChange={handleChange}
+
+
+                                                    <div className="mt-2 flex">
+                                                          <span
+                                                              className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                                                              Rp.
+                                                          </span>
+
+                                                        <input   value={formValue.price}
+                                                                 onChange={handleChange}
                                                             type="number"
-                                                            name="price"
-                                                            id="price"
-                                                            autoComplete="price"
-                                                            className="px-2 block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                                            placeholder="45.000"
-                                                        />
+                                                               name="price"
+                                                               id="price"
+                                                               className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                               placeholder="60000"/>
                                                     </div>
-                                                </div>
+
+
                                             </div>
 
                                             <div className="sm:col-span-3">
@@ -273,8 +276,9 @@ const AddVenue = ({ListCategory}) => {
                                                         id="maps"
                                                         name="maps"
                                                         type="maps"
+                                                        placeholder={"https://maps.google.com/maps?q=loc:6.2359,106.7818"}
                                                         autoComplete="maps"
-                                                        className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     />
                                                 </div>
                                             </div>
@@ -290,8 +294,9 @@ const AddVenue = ({ListCategory}) => {
                                                          onChange={handleChange}
                                                          id="address"
                                                          name="address"
+                                                         placeholder="Jl. Raya Ciputat No. 1, Ciputat, Tangerang Selatan, Banten 15412"
                                                          rows={2}
-                                                         className="px-2 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
+                                                         className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                          defaultValue={''}
                                                      />
                                                 </div>
@@ -303,7 +308,6 @@ const AddVenue = ({ListCategory}) => {
 
 
                                 </div>
-
 
 
                                 <div className="mt-6 flex items-center justify-end gap-x-6">

@@ -18,13 +18,13 @@ export class AuthService {
         password,
       })
       .then((res) => {
-        console.log("res", res);
+
         return {
           username: res.data.data.username,
-          avatar: res.data.data.avatar,
-          id: res.data.data.Id,
-          accessToken: res.data.data.token,
-          expiredAt: res.data.expiredAt,
+          avatar: res.data.data.path_avatar,
+          id: res.data.data.id,
+          accessToken: res.data.data.access_token,
+          expiredAt: res.data.data.expired_at,
         };
       });
   };
