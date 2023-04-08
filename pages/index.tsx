@@ -9,7 +9,7 @@ import Link from "next/link";
 import Navbar from "@/pages/navbar";
 
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
     try {
         const ListVenueResponse = await axios.post(process.env.apidomain + '/api/v1/venue/list', {});
@@ -117,23 +117,7 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
                         </div>
                     </div>
 
-                    {/*<Image*/}
-                    {/*  className={styles.logo}*/}
-                    {/*  src="/next.svg"*/}
-                    {/*  alt="Next.js Logo"*/}
-                    {/*  width={180}*/}
-                    {/*  height={37}*/}
-                    {/*  priority*/}
-                    {/*/>*/}
-                    {/*<div className={styles.thirteen}>*/}
-                    {/*  <Image*/}
-                    {/*    src="/thirteen.svg"*/}
-                    {/*    alt="13"*/}
-                    {/*    width={40}*/}
-                    {/*    height={31}*/}
-                    {/*    priority*/}
-                    {/*  />*/}
-                    {/*</div>*/}
+
                 </div>
 
 

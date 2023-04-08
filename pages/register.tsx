@@ -1,6 +1,5 @@
-import {useRouter} from "next/router";
+
 import React, { useState } from 'react';
-import {useLogin} from "@/src/hooks/auth/useLogin";
 import Navbar from "@/pages/navbar";
 import Link from "next/link";
 import Head from "next/head";
@@ -9,18 +8,6 @@ import Head from "next/head";
 const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const {login} = useLogin();
-    const router = useRouter();
-    const onSubmit = (event: any) => {
-        event.preventDefault()
-        if (!email || !password) {
-            alert("Please enter information");
-        } else {
-            login(email, password)
-                .then((res) => router.push("/venue"))
-                .catch((e) => alert(e));
-        }
-    };
 
     return (
         <>
