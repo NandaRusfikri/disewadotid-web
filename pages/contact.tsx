@@ -2,14 +2,11 @@ import {useRouter} from "next/router";
 import {useState} from "react";
 import {useLogin} from "../src/hooks/auth/useLogin";
 import Navbar from "@/pages/navbar";
-import Link from "next/link";
+
 import Head from "next/head";
 
-function classNames(...classes: any) {
-    return classes.filter(Boolean).join(' ')
-}
 
-export default function Login() {
+const Contact = () => {
     const [email, setName] = useState("");
     const [password, setPassword] = useState("");
     const {login} = useLogin();
@@ -99,3 +96,5 @@ export default function Login() {
         </>
     );
 }
+export default Contact
+

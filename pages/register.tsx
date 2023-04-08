@@ -5,7 +5,8 @@ import Navbar from "@/pages/navbar";
 import Link from "next/link";
 import Head from "next/head";
 
-export default function Login() {
+
+const Register = () => {
     const [email, setName] = useState("");
     const [password, setPassword] = useState("");
     const {login} = useLogin();
@@ -59,7 +60,7 @@ export default function Login() {
                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                     <input type="password" name="password" id="password" placeholder="••••••••"
                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           />
+                                    />
                                 </div>
                                 <div>
                                     <label htmlFor="confirm-password"
@@ -68,13 +69,13 @@ export default function Login() {
                                     <input type="confirm-password" name="confirm-password" id="confirm-password"
                                            placeholder="••••••••"
                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           />
+                                    />
                                 </div>
                                 <div className="flex items-start">
                                     <div className="flex items-center h-5">
                                         <input id="terms" aria-describedby="terms" type="checkbox"
                                                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-red-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-red-600 dark:ring-offset-gray-800"
-                                               />
+                                        />
                                     </div>
                                     <div className="ml-3 text-sm">
                                         <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I
@@ -89,7 +90,7 @@ export default function Login() {
                                 </button>
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                     Already have an account? <Link href="/login"
-                                                                className="font-medium text-red-600 hover:underline dark:text-red-500">Login
+                                                                   className="font-medium text-red-600 hover:underline dark:text-red-500">Login
                                     here</Link>
                                 </p>
                             </form>
@@ -100,3 +101,7 @@ export default function Login() {
         </>
     );
 }
+export default Register
+
+
+
