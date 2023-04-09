@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 import styles from '@/styles/Home.module.css'
-import {useState} from "react";
+import React, {useState} from "react";
 import {useRouter} from 'next/router'
 import axios from 'axios';
 import Image from 'next/image'
@@ -51,40 +51,27 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
 
 
                 <div className={styles.center}>
+                    <div className="mx-auto max-w-2xl py-4 px-5 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
+                        <Link href={`/add_venue`}>
+                            <button
+                                className=" bg-secondary-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-5 ease-linear transition-all duration-150"
+                                type="button"
+                            >
+                                Tambah
 
-
-
-
-                    <div className="mx-auto max-w-2xl py-2 px-2 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
-                        <div className="mx-auto max-w-2xl  px-4lg:max-w-7xl lg:px-8">
-                            <label htmlFor="countries"
-                                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Pilih Category
-                            </label>
-                            <select value={selectedCategory} onChange={(e) => {
-                                setCategory(e.target.value);
-                            }}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Semua Olahraga</option>
-
-                                {ListCategory.map((category) => (
-                                    <option value={category.id}>{category.name}</option>
-                                ))}
-                            </select>
-                        </div>
-
+                            </button>
+                        </Link>
                         <div
-                            className="mt-6 grid grid-cols-2 gap-y-6 gap-x-2 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-3">
+                            className=" grid  gap-y-6 gap-x-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-3">
                             {ListVenue.map((product) => (
-
                                 <div
                                     className="max-w-sm  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                    <Link key={product.id} href={`/product`}>
+
                                         <div key={product.id} className=" group relative">
                                             <div
                                                 className="  overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none ">
 
-                                                <div className="lg:h-64 h-40 w-96 relative">
+                                                <div className="lg:h-64 h-48 w-96 relative">
 
                                                     {product.photos.map((ayam: any) => (
                                                         <div key={ayam.id}>
@@ -109,17 +96,31 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
                                                 </div>
                                             </div>
 
-                                            <div className="pl-2 py-2">
+                                            <div className="px-2 py-2">
                                                 <h2 className=" font-bold text-gray-700">
                                                     {product.name}
 
                                                 </h2>
                                                 <p className="text-sm font-bold text-red-700">Rp. {product.price}</p>
-                                                <p className="mt-1 text-sm  text-gray-500">{product.city}</p>
+
+                                            </div>
+                                            <div className="px-2 py-2 ">
+                                                <div className="">
+                                                    <button type="button"
+                                                            className=" bottom-0 left-0  text-white bg-secondary-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-xs mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                                        <Link href="#">Updaye Jadwal</Link>
+                                                    </button>
+                                                    <button type="button"
+                                                            className=" bottom-0 right-0  text-white bg-secondary-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-xs mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                                        <Link href="/manage_venue">Update Data</Link>
+                                                    </button>
+                                                </div>
                                             </div>
 
+
+
                                         </div>
-                                    </Link>
+
                                 </div>
 
                             ))}

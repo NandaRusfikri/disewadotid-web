@@ -79,10 +79,11 @@ const AddVenue = ({ListCategory}) => {
         ReqFormData.append("city", formValue.city)
         ReqFormData.append("address", formValue.address)
         ReqFormData.append("price", formValue.price)
-        ReqFormData.append("maps_rul", formValue.maps_rul)
+        ReqFormData.append("maps_url", formValue.maps_rul)
+        ReqFormData.append("user_id", "642c1ff535ba534444ad6c1e")
         for (let i = 0; i < fotos.length; i++) {
             if (fotos[i]) {
-                ReqFormData.append(`thumbnail`, fotos[i]);
+                ReqFormData.append(`photos`, fotos[i]);
             }
         }
         // ReqFormData.append('thumbnail', fileInputs.current.files[0]);
@@ -211,7 +212,7 @@ const AddVenue = ({ListCategory}) => {
                                                             autoComplete="country-name"
                                                             className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     >
-                                                    <option selected>Choose a Category</option>
+                                                        <option selected>Choose a Category</option>
 
                                                         {ListCategory.map((category) => (
                                                             <option value={category.id}>{category.name}</option>
@@ -246,20 +247,20 @@ const AddVenue = ({ListCategory}) => {
                                                 </label>
 
 
-                                                    <div className="mt-2 flex">
+                                                <div className="mt-2 flex">
                                                           <span
                                                               className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                                               Rp.
                                                           </span>
 
-                                                        <input   value={formValue.price}
-                                                                 onChange={handleChange}
-                                                            type="number"
-                                                               name="price"
-                                                               id="price"
-                                                               className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                               placeholder="60000"/>
-                                                    </div>
+                                                    <input value={formValue.price}
+                                                           onChange={handleChange}
+                                                           type="number"
+                                                           name="price"
+                                                           id="price"
+                                                           className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                           placeholder="60000"/>
+                                                </div>
 
 
                                             </div>

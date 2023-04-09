@@ -9,6 +9,10 @@ const nextConfig = {
     pathimage: "https://api.disewa.id/",
     apidomain: "https://api.disewa.id/",
   },
+  // env: {
+  //   pathimage: "http://localhost:2226/",
+  //   apidomain: "http://localhost:2226",
+  // },
 }
 
 module.exports = nextConfig
