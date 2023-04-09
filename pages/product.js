@@ -2,7 +2,7 @@ import Image from "next/image";
 import {Fragment, useState} from "react";
 import Swipe from "react-easy-swipe";
 import Head from 'next/head'
-
+import Navbar from "@/pages/navbar";
 
 export async function getStaticProps() {
 
@@ -170,7 +170,7 @@ export default function Product({images}) {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-
+    <Navbar/>
             <main>
 
 
