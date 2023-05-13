@@ -186,8 +186,9 @@ const DetailVenue = ({DataVenue}) => {
     return (
         <>
             <Head>
-                <title>Disewa.id</title>
-                <meta name="description" content="sewa lapangan gor venue"/>
+                <title>{DataVenue.org.name} - {DataVenue.category.name}</title>
+                <meta name="description" content={"Sewa Lapangan "+DataVenue.category.name+" "+DataVenue.org.city
+                    +" "+DataVenue.org.name}/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
