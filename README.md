@@ -12,6 +12,15 @@ yarn dev
 pnpm dev
 ```
 
+jika build killed
+```bash
+rm -r .next/
+sudo fallocate -l 1G /swapfile
+npm run build
+pm2 start npm --name "disewa" -- start
+```
+
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.

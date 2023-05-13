@@ -18,13 +18,11 @@ export async function getServerSideProps({ params }) {
         const DataVenue = ReqVenue.data.data;
 
 
-        const images = ["https://lh3.googleusercontent.com/p/AF1QipN2gX9xg92zoCm602qwueofUH82DKt6Jm1erPS0=s1360-w1360-h1020",
-            "https://lh3.googleusercontent.com/p/AF1QipNvjbkBjds4sNi9YYFvV5WKA_x_6gGSMQl1yh4L=s1360-w1360-h1020",
-            "https://lh3.googleusercontent.com/p/AF1QipPsKWWxENuiOkOvPIp2FbeTO05aZ_mdZHmf-Pec=s1360-w1360-h1020"]
-        return {props: {images, DataVenue}};
+
+        return {props: { DataVenue}};
     } catch (error) {
         console.error(error);
-        return {props: {images: [],DataVenue: {}}};
+        return {props: {DataVenue: {}}};
     }
 
 
@@ -32,7 +30,7 @@ export async function getServerSideProps({ params }) {
 
 }
 
-const DetailVenue = ({images,DataVenue}) => {
+const DetailVenue = ({DataVenue}) => {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const [openTab, setOpenTab] = useState(1);
@@ -225,7 +223,7 @@ const DetailVenue = ({images,DataVenue}) => {
 
                                         <div className="absolute text-3xl  bottom-2 left-1/2 -translate-x-1/2">
                                             <div className="relative flex justify-center p-2">
-                                                {images.map((_, index) => {
+                                                {DataVenue.photos.map((_, index) => {
                                                     return (
                                                         <div
                                                             className={
