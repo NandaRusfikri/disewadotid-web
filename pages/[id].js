@@ -4,21 +4,35 @@ import Swipe from "react-easy-swipe";
 import Head from 'next/head'
 import Navbar from "@/pages/navbar";
 import axios from "axios";
+import AddVenue from "./admin/add_venue";
 
-export async function getStaticProps() {
 
-    const images = ["https://lh3.googleusercontent.com/p/AF1QipN2gX9xg92zoCm602qwueofUH82DKt6Jm1erPS0=s1360-w1360-h1020",
-        "https://lh3.googleusercontent.com/p/AF1QipNvjbkBjds4sNi9YYFvV5WKA_x_6gGSMQl1yh4L=s1360-w1360-h1020",
-        "https://lh3.googleusercontent.com/p/AF1QipPsKWWxENuiOkOvPIp2FbeTO05aZ_mdZHmf-Pec=s1360-w1360-h1020"]
-    return {
-        props: {
-            images,
-        },
+
+export async function getServerSideProps({ params }) {
+
+    try {
+
+        //
+        const ReqVenue = await axios.get(process.env.apidomain + '/api/v1/venue/'+params.id, );
+        const DataVenue = ReqVenue.data.data;
+
+
+        const images = ["https://lh3.googleusercontent.com/p/AF1QipN2gX9xg92zoCm602qwueofUH82DKt6Jm1erPS0=s1360-w1360-h1020",
+            "https://lh3.googleusercontent.com/p/AF1QipNvjbkBjds4sNi9YYFvV5WKA_x_6gGSMQl1yh4L=s1360-w1360-h1020",
+            "https://lh3.googleusercontent.com/p/AF1QipPsKWWxENuiOkOvPIp2FbeTO05aZ_mdZHmf-Pec=s1360-w1360-h1020"]
+        return {props: {images, DataVenue}};
+    } catch (error) {
+        console.error(error);
+        return {props: {images: [],DataVenue: {}}};
     }
+
+
+
 
 }
 
-export default function Product({images}) {
+const DetailVenue = ({images,DataVenue}) => {
+
     const [currentSlide, setCurrentSlide] = useState(0);
     const [openTab, setOpenTab] = useState(1);
 
@@ -177,22 +191,24 @@ export default function Product({images}) {
                 <div className="grid grid-cols-8 gap-2">
                     <div className="lg:col-start-3 lg:col-end-7 col-span-8  border-2 rounded-md border-neutral-900">
                         <div className="relative">
+
+
                             <div className="relative flex justify-center ">
                                 <div className=" lg:w-full  w-full lg:h-[55vh] h-[35vh] ">
                                     <Swipe
                                         onSwipeLeft={handleNextSlide}
                                         onSwipeRight={handlePrevSlide}
-                                        className=" relative z-10 w-full h-full"
+                                        className=" relative z-1 w-full h-full"
                                     >
-                                        {images.map((image, index) => {
+                                        {DataVenue.photos.map((image, index) => {
                                             if (index === currentSlide) {
                                                 return (
                                                     <Image
                                                         key={image.id}
-                                                        src={image}
+                                                        src={process.env.pathimage + image.path_photo}
                                                         fill
                                                         className="animate-fadeIn  "
-                                                        alt={image}
+                                                        alt={process.env.pathimage + image.path_photo}
                                                     />
                                                 );
                                             }
@@ -215,28 +231,37 @@ export default function Product({images}) {
                                                         />
                                                     );
                                                 })}
+
                                             </div>
                                         </div>
 
 
                                     </Swipe>
+
+
                                 </div>
 
+
                             </div>
+
 
                         </div>
                         <div className="mx-auto max-w-7xl px-2 ">
                             <div className=" ">
                                 <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                                    Everything you need to deploy your app
+                                    {DataVenue.org.name}
                                 </p>
-                                <h2 className="text-base font-semibold leading-7 text-indigo-600">Status Verified</h2>
+                                <h2 className="text-xl  font-bold leading-7 text-red-600">Rp. {DataVenue.price}/Jam</h2>
+                                <h2 className="text-base  font-bold leading-7 ">Category Olahraga : <span className="text-indigo-600">{DataVenue.category.name}</span></h2>
 
-                                <p className="mt-6 text-lg leading-8 text-gray-600">
-                                    Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget
-                                    egestas a elementum
-                                    pulvinar et feugiat blandit at. In mi viverra elit nunc.
-                                </p>
+                                <h2 className="text-base  font-bold leading-7 ">Status : <span className="text-indigo-600">{DataVenue.status}</span></h2>
+
+
+                                {/*<p className="mt-6 text-lg leading-8 text-gray-600">*/}
+                                {/*    Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget*/}
+                                {/*    egestas a elementum*/}
+                                {/*    pulvinar et feugiat blandit at. In mi viverra elit nunc.*/}
+                                {/*</p>*/}
                             </div>
                         </div>
 
@@ -250,7 +275,7 @@ export default function Product({images}) {
                                             onClick={() => setOpenTab(1)}
                                             className={` ${openTab === 1 ? "active text-blue-600 font-bold border-b-2 border-blue-600" : ""} w-full text-black inline-block p-4 border-b-2  rounded-t-lg`}
                                         >
-                                            Jadwal
+                                            Informasi
                                         </a>
                                     </li>
                                     <li className="grow  ">
@@ -259,7 +284,7 @@ export default function Product({images}) {
                                             onClick={() => setOpenTab(2)}
                                             className={` ${openTab === 2 ? "active text-blue-600 font-bold border-b-2 border-blue-600" : ""} w-full text-black inline-block p-4 border-b-2 rounded-t-lg`}
                                         >
-                                            Informasi
+                                            Jadwal
                                         </a>
                                     </li>
                                     <li className="grow  ">
@@ -277,6 +302,47 @@ export default function Product({images}) {
                                 <div className="p-3 mt-2 bg-white ">
                                     <div className={openTab === 1 ? "block" : "hidden"}>
 
+                                        <div className="overflow-hidden bg-white shadow sm:rounded-lg">
+                                            <div className="px-4 py-5 sm:px-6">
+                                                <h3 className="text-base font-semibold leading-6 text-gray-900">Applicant
+                                                    Information</h3>
+                                                <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details and
+                                                    application.</p>
+                                            </div>
+                                            <div className="border-t border-gray-200">
+                                                <dl>
+                                                    <div
+                                                        className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                        <dt className="text-sm text-left font-medium text-gray-500">Name</dt>
+                                                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Margot
+                                                            Foster
+                                                        </dd>
+                                                    </div>
+                                                    <div
+                                                        className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                        <dt className="text-left text-sm font-medium text-gray-500">Contact</dt>
+                                                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">WA
+                                                            628xxxxxxxxx
+                                                        </dd>
+                                                    </div>
+
+                                                    <div
+                                                        className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                        <dt className="text-left text-sm font-medium text-gray-500">Lokasi</dt>
+                                                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                                                            <a href="pages/index#"
+                                                               className="font-medium text-indigo-600 hover:text-indigo-500">
+                                                                Google Maps
+                                                            </a>
+                                                        </dd>
+                                                    </div>
+
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div className={openTab === 2 ? "block" : "hidden"}>
                                         <div className="grid  place-items-center">
                                             <div className="flex overflow-x-auto ">
                                                 <table className=" divide-y divide-gray-200">
@@ -373,46 +439,6 @@ export default function Product({images}) {
 
                                         </div>
                                     </div>
-                                    <div className={openTab === 2 ? "block" : "hidden"}>
-                                        <div className="overflow-hidden bg-white shadow sm:rounded-lg">
-                                            <div className="px-4 py-5 sm:px-6">
-                                                <h3 className="text-base font-semibold leading-6 text-gray-900">Applicant
-                                                    Information</h3>
-                                                <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details and
-                                                    application.</p>
-                                            </div>
-                                            <div className="border-t border-gray-200">
-                                                <dl>
-                                                    <div
-                                                        className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                        <dt className="text-sm text-left font-medium text-gray-500">Name</dt>
-                                                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Margot
-                                                            Foster
-                                                        </dd>
-                                                    </div>
-                                                    <div
-                                                        className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                        <dt className="text-left text-sm font-medium text-gray-500">Contact</dt>
-                                                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">WA
-                                                            628xxxxxxxxx
-                                                        </dd>
-                                                    </div>
-
-                                                    <div
-                                                        className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                        <dt className="text-left text-sm font-medium text-gray-500">Lokasi</dt>
-                                                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                                                            <a href="#"
-                                                               className="font-medium text-indigo-600 hover:text-indigo-500">
-                                                                Google Maps
-                                                            </a>
-                                                        </dd>
-                                                    </div>
-
-                                                </dl>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div className={openTab === 3 ? "block" : "hidden"}>
                                         React JS with Tailwind CSS Tab 3 Content show
                                     </div>
@@ -434,4 +460,4 @@ export default function Product({images}) {
     )
 }
 
-
+export default DetailVenue;

@@ -5,14 +5,14 @@ const nextConfig = {
   images: {
     domains: ['tailwindui.com','splidejs.com',"lh3.googleusercontent.com","localhost","disewa.id","api.disewa.id"]
   },
-  env: {
-    pathimage: "https://api.disewa.id/",
-    apidomain: "https://api.disewa.id/",
-  },
   // env: {
-  //   pathimage: "http://localhost:2226/",
-  //   apidomain: "http://localhost:2226",
+  //   pathimage: "https://api.disewa.id/",
+  //   apidomain: "https://api.disewa.id/",
   // },
+  env: {
+    pathimage: "http://localhost:2227/",
+    apidomain: "http://localhost:2227",
+  },
 }
 
 module.exports = nextConfig

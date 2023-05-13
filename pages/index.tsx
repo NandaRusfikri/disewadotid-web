@@ -12,7 +12,7 @@ import Navbar from "@/pages/navbar";
 export async function getServerSideProps() {
 
     try {
-        const ListVenueResponse = await axios.post(process.env.apidomain + '/api/v1/venue/list', {});
+        const ListVenueResponse = await axios.post(process.env.apidomain + '/api/v1/venue/product/list', {});
         const ListVenue = ListVenueResponse.data.data;
 
         const ListCategoryResponse = await axios.get(process.env.apidomain + '/api/v1/category/list', {});
@@ -111,11 +111,11 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
 
                                             <div className="pl-2 py-2">
                                                 <h2 className=" font-bold text-gray-700">
-                                                    {product.name}
+                                                    {product.org.name}
 
                                                 </h2>
                                                 <p className="text-sm font-bold text-red-700">Rp. {product.price}</p>
-                                                <p className="mt-1 text-sm  text-gray-500">{product.city}</p>
+                                                <p className="mt-1 text-sm  text-gray-500">{product.org.city}</p>
                                             </div>
 
                                         </div>
