@@ -79,7 +79,7 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
 
                                 <div
                                     className="max-w-sm  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                    <Link key={product.id} href={`/product`}>
+                                    <Link key={product.id} href={`/`+product.id}>
                                         <div key={product.id} className=" group relative">
                                             <div
                                                 className="  overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none ">

@@ -3,6 +3,7 @@ import {Fragment, useState} from "react";
 import Swipe from "react-easy-swipe";
 import Head from 'next/head'
 import Navbar from "@/pages/navbar";
+import { PaperClipIcon } from '@heroicons/react/20/solid'
 import axios from "axios";
 import AddVenue from "./admin/add_venue";
 
@@ -167,6 +168,14 @@ const DetailVenue = ({images,DataVenue}) => {
         },
     ];
 
+    const handleCityClick = (mapsUrl) => {
+        window.open(mapsUrl, "_blank");
+    };
+
+    const handleBookClick = (phone) => {
+        window.open("https://wa.me/"+phone+"?text=saya ingin booking lapangan ", "_blank");
+    }
+
     const handleNextSlide = () => {
         let newSlide = currentSlide === images.length - 1 ? 0 : currentSlide + 1;
         setCurrentSlide(newSlide);
@@ -302,39 +311,58 @@ const DetailVenue = ({images,DataVenue}) => {
                                 <div className="p-3 mt-2 bg-white ">
                                     <div className={openTab === 1 ? "block" : "hidden"}>
 
-                                        <div className="overflow-hidden bg-white shadow sm:rounded-lg">
-                                            <div className="px-4 py-5 sm:px-6">
-                                                <h3 className="text-base font-semibold leading-6 text-gray-900">Applicant
-                                                    Information</h3>
-                                                <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details and
-                                                    application.</p>
-                                            </div>
-                                            <div className="border-t border-gray-200">
-                                                <dl>
-                                                    <div
-                                                        className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                        <dt className="text-sm text-left font-medium text-gray-500">Name</dt>
-                                                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Margot
-                                                            Foster
-                                                        </dd>
-                                                    </div>
-                                                    <div
-                                                        className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                        <dt className="text-left text-sm font-medium text-gray-500">Contact</dt>
-                                                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">WA
-                                                            628xxxxxxxxx
-                                                        </dd>
-                                                    </div>
 
-                                                    <div
-                                                        className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                        <dt className="text-left text-sm font-medium text-gray-500">Lokasi</dt>
-                                                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                                                            <a href="pages/index#"
-                                                               className="font-medium text-indigo-600 hover:text-indigo-500">
-                                                                Google Maps
-                                                            </a>
+                                        <div>
+
+                                            <div className=" border-t border-gray-100">
+                                                <dl className="divide-y divide-gray-100">
+                                                    <div className="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                        <dt className="text-sm font-bold  leading-6 text-gray-900">Domisili</dt>
+                                                        <dd className="mt-1  text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{DataVenue.org.province} - {DataVenue.org.city}</dd>
+                                                    </div>
+                                                    <div className="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                        <dt className="text-sm font-bold leading-6 text-gray-900">Contact Booking</dt>
+                                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">WA {DataVenue.org.phone}</dd>
+                                                    </div>
+                                                    <div className="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                        <dt className="text-sm font-bold leading-6 text-gray-900">Email address</dt>
+                                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{DataVenue.org.email}</dd>
+                                                    </div>
+                                                    <div className="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                        <dt className="text-sm font-bold leading-6 text-gray-900">Alamat Lengkap</dt>
+                                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                                            {DataVenue.org.address}
                                                         </dd>
+
+                                                        <button
+                                                            className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
+                                                            onClick={() => handleCityClick(DataVenue.org.maps_url)}
+                                                        >
+                                                            <svg
+                                                                className="w-4 h-4 mr-2 -ml-1"
+                                                                aria-hidden="true"
+                                                                focusable="false"
+                                                                data-prefix="fas"
+                                                                data-icon="map-marker-alt"
+                                                                role="img"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 384 512"
+                                                            >
+                                                                <path
+                                                                    fill="currentColor"
+                                                                    d="M192 0C86 0 0 86 0 192c0 119.26 140.38 297.57 147.1 305.15a23.62 23.62 0 0 0 38.8 0C243.62 489.57 384 311.26 384 192 384 86 298 0 192 0zm0 352a96 96 0 1 1 96-96 96 96 0 0 1-96 96z"
+                                                                ></path>
+                                                            </svg>
+                                                            Open in Maps
+                                                        </button>
+                                                    </div>
+                                                    <div className="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                        <button type="button"
+                                                                onClick={() => handleBookClick(DataVenue.org.phone)}
+                                                                className="text-white bg-[#050708] hover:bg-[#050708]/80 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 mr-2 mb-2">
+                                                            Booking  Lapangan Sekarang
+
+                                                        </button>
                                                     </div>
 
                                                 </dl>
@@ -343,6 +371,9 @@ const DetailVenue = ({images,DataVenue}) => {
 
                                     </div>
                                     <div className={openTab === 2 ? "block" : "hidden"}>
+
+                                        Maaf Jadwal Belum Tersedia, ini hanya contoh tampilan
+                                        <br/>
                                         <div className="grid  place-items-center">
                                             <div className="flex overflow-x-auto ">
                                                 <table className=" divide-y divide-gray-200">
@@ -360,36 +391,23 @@ const DetailVenue = ({images,DataVenue}) => {
                                                             className="px-2 py-2 border-2 border-black"
                                                         >
 
-                                                            Court1
+                                                            Lapangan 1
                                                         </th>
                                                         <th
                                                             scope="col"
                                                             className="px-2 py-2 border-2 border-black"
                                                         >
 
-                                                            Court2
+                                                            Lapangan 2
                                                         </th>
                                                         <th
                                                             scope="col"
                                                             className="px-2 py-2 border-2 border-black"
                                                         >
 
-                                                            Court3
+                                                            Lapangan 3
                                                         </th>
-                                                        <th
-                                                            scope="col"
-                                                            className="px-2 py-2 border-2 border-black"
-                                                        >
 
-                                                            Court4
-                                                        </th>
-                                                        <th
-                                                            scope="col"
-                                                            className="px-2 py-2 border-2 border-black"
-                                                        >
-
-                                                            Court5
-                                                        </th>
 
                                                     </tr>
 
@@ -417,16 +435,7 @@ const DetailVenue = ({images,DataVenue}) => {
 
                                                                 {person.department}
                                                             </td>
-                                                            <td scope="col"
-                                                                className={person.email != '' ? "text-center px-2 py-2 border-2 border-black" : "bg-orange-800 px-2 py-2 border-2 border-black"}>
 
-                                                                {person.email}
-                                                            </td>
-                                                            <td scope="col"
-                                                                className={person.role != '' ? "text-center px-2 py-2 border-2 border-black" : "bg-orange-800 px-2 py-2 border-2 border-black"}>
-
-                                                                {person.role}
-                                                            </td>
 
 
                                                         </tr>
@@ -441,6 +450,7 @@ const DetailVenue = ({images,DataVenue}) => {
                                     </div>
                                     <div className={openTab === 3 ? "block" : "hidden"}>
                                         React JS with Tailwind CSS Tab 3 Content show
+
                                     </div>
                                 </div>
                             </div>
