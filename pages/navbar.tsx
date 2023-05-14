@@ -43,8 +43,8 @@ export default function Navbar() {
                                 <div className="flex flex-shrink-0 items-center">
                                     <img
                                         className="block h-8 w-auto "
-                                        src="disewa.id.svg"
-                                        alt="Your Company"
+                                        src="/disewa.id.svg"
+                                        alt="Logo Disewa.id"
                                     />
 
 

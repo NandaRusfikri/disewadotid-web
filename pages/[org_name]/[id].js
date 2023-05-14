@@ -229,8 +229,8 @@ const DetailVenue = ({DataVenue}) => {
                                                         <div
                                                             className={
                                                                 index === currentSlide
-                                                                    ? "h-6 w-6 bg-black rounded-full mx-2 mb-2 cursor-pointer border-2 border-black"
-                                                                    : "h-6 w-6 bg-gray-200 rounded-full mx-2 mb-2 cursor-pointer border-2 border-stone-900"
+                                                                    ? "h-6 w-6 bg-black rounded-full mx-2  cursor-pointer border-2 border-black"
+                                                                    : "h-6 w-6 bg-gray-200 rounded-full mx-2  cursor-pointer border-2 border-stone-900"
                                                             }
                                                             key={index}
                                                             onClick={() => {
