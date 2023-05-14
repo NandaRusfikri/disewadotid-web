@@ -6,7 +6,7 @@ import {useRouter} from 'next/router';
 import Head from "next/head";
 import Navbar from "../navbar";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     try {
 
 
@@ -90,7 +90,7 @@ const AddVenue = ({ListCategory,ListOrg}) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            router.push('/admin/[org_name]');
+            router.push('/admin/venue');
             console.log(response)
         } catch (error) {
             console.log(error)

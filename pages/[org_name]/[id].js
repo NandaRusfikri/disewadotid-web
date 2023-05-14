@@ -473,7 +473,7 @@ const DetailVenue = ({DataVenue,FullURL}) => {
 
                             <WhatsappShareButton
                                 url={FullURL}
-                                // title={DataVenue.org?.maps_url}
+                                title={' '}
                                 separator=" "
                             >
                                 <WhatsappIcon size={48} round />
