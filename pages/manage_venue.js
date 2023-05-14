@@ -90,12 +90,12 @@ const AddVenue = ({ListCategory}) => {
         //
         // try {
         //     // make axios post request
-        //     const response = await axiosInstance.put('/api/v1/venue', ReqFormData, {
+        //     const response = await axiosInstance.put('/api/v1/[org_name]', ReqFormData, {
         //         headers: {
         //             'Content-Type': 'multipart/form-data',
         //         },
         //     });
-        //     router.push('/venue');
+        //     router.push('/[org_name]');
         //     console.log(response)
         // } catch (error) {
         //     console.log(error)

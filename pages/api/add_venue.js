@@ -93,7 +93,7 @@ const AddVenue = ({ListCategory}) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            router.push('/venue');
+            router.push('/[org_name]');
             console.log(response)
         } catch (error) {
             console.log(error)

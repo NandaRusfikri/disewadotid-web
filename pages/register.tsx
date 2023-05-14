@@ -13,7 +13,7 @@ const Register = () => {
         <>
             <Head>
                 <title>Sign Up disewa.id</title>
-                <meta name="description" content="sewa lapangan olahraga gor venue "/>
+                <meta name="description" content="register new account"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>

@@ -2,7 +2,6 @@ import Head from 'next/head'
 
 import styles from '@/styles/Home.module.css'
 import {useState} from "react";
-import {useRouter} from 'next/router'
 import axios from 'axios';
 import Image from 'next/image'
 import Link from "next/link";
@@ -35,14 +34,14 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
     if (error) {
         return <div>An Error {error.message}</div>
     }
-    const [selectedCategory, setCategory] = useState<string | number>();
-
+    // const [selectedCategory, setCategory] = useState<string | number>();
+    const [selectedCategory, setCategory] = useState<string | number>(0);
 
     return (
         <>
             <Head>
-                <title>Sewa Lapangan Olahraga </title>
-                <meta name="description" content="Sewa Lapangan Olahraga dengan jadwal"/>
+                <title>Sewa Lapangan Olahraga Terdekat</title>
+                <meta name="description" content="Sewa Lapangan Olahraga terdekat"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
@@ -61,14 +60,14 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Pilih Category
                             </label>
-                            <select value={selectedCategory} onChange={(e) => {
+                            <select  value={selectedCategory} onChange={(e) => {
                                 setCategory(e.target.value);
                             }}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Semua Olahraga</option>
+                                <option defaultValue="0" value="0" >Semua Olahraga</option>
 
                                 {ListCategory.map((category) => (
-                                    <option value={category.id}>{category.name}</option>
+                                    <option key={category.id} value={category.id}>{category.name}</option>
                                 ))}
                             </select>
                         </div>
@@ -77,9 +76,9 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
                             className="mt-6 grid grid-cols-2 gap-y-6 gap-x-2 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-3">
                             {ListVenue.map((product) => (
 
-                                <div
+                                <div key={product.id}
                                     className="max-w-sm  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                    <Link key={product.id} href={`/`+product.id}>
+                                    <Link href={`${product.org.uniq_name}/${String(product.id)}`}>
                                         <div key={product.id} className=" group relative">
                                             <div
                                                 className="  overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none ">
