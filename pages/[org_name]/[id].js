@@ -8,20 +8,28 @@ import axios from "axios";
 import AddVenue from "../admin/add_venue";
 import { FaWhatsapp } from "react-icons/fa";
 
+import {
+    WhatsappShareButton,
+    WhatsappIcon,
+} from 'next-share'
+export async function getServerSideProps({ params, req  }) {
 
-export async function getServerSideProps({ params }) {
 
     try {
-        console.log('getServerSideProps', params);
-        //
+
+
+        const protocol = req.headers['x-forwarded-proto'] || 'http';
+        const host = req.headers['x-forwarded-host'] || req.headers.host;
+        const FullURL = `${protocol}://${host}${req.url}`;
+
+
         const ReqVenue = await axios.get(process.env.apidomain + '/api/v1/venue/'+params.id, );
         const DataVenue = ReqVenue.data.data;
 
-
-        return {props: { DataVenue}};
+        return {props: { DataVenue,FullURL}};
     } catch (error) {
         console.error(error);
-        return {props: {DataVenue: {}}};
+        return {props: {DataVenue: {},FullURL:"https://disewa.id"}};
     }
 
 
@@ -29,7 +37,7 @@ export async function getServerSideProps({ params }) {
 
 }
 
-const DetailVenue = ({DataVenue}) => {
+const DetailVenue = ({DataVenue,FullURL}) => {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const [openTab, setOpenTab] = useState(1);
@@ -164,7 +172,7 @@ const DetailVenue = ({DataVenue}) => {
             image: '',
         },
     ];
-
+    // const fullUrl = currentUrl
     const handleCityClick = (mapsUrl) => {
         window.open(mapsUrl, "_blank");
     };
@@ -183,12 +191,14 @@ const DetailVenue = ({DataVenue}) => {
         let newSlide = currentSlide === 0 ? images.length - 1 : currentSlide - 1;
         setCurrentSlide(newSlide);
     };
+
+    const title = DataVenue.org?.name+" - "+DataVenue.category?.name;
     return (
         <>
             <Head>
-                <title>{DataVenue.org.name} - {DataVenue.category.name}</title>
-                <meta name="description" content={"Sewa Lapangan "+DataVenue.category.name+" "+DataVenue.org.city
-                    +" "+DataVenue.org.name}/>
+                <title>{title}</title>
+                <meta name="description" content={"Sewa Lapangan "+DataVenue.category?.name+" "+DataVenue.org?.city
+                    +" "+DataVenue.org?.name}/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
@@ -208,7 +218,7 @@ const DetailVenue = ({DataVenue}) => {
                                         onSwipeRight={handlePrevSlide}
                                         className=" relative z-1 w-full h-full"
                                     >
-                                        {DataVenue.photos.map((image, index) => {
+                                        {DataVenue.photos?.map((image, index) => {
                                             if (index === currentSlide) {
                                                 return (
                                                     <Image
@@ -224,7 +234,7 @@ const DetailVenue = ({DataVenue}) => {
 
                                         <div className="absolute text-3xl  bottom-2 left-1/2 -translate-x-1/2">
                                             <div className="relative flex justify-center p-2">
-                                                {DataVenue.photos.map((_, index) => {
+                                                {DataVenue.photos?.map((_, index) => {
                                                     return (
                                                         <div
                                                             className={
@@ -257,10 +267,10 @@ const DetailVenue = ({DataVenue}) => {
                         <div className="mx-auto max-w-7xl px-2 ">
                             <div className=" ">
                                 <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                                    {DataVenue.org.name}
+                                    {DataVenue.org?.name}
                                 </p>
-                                <h2 className="text-xl  font-bold leading-7 text-red-600">Rp. {DataVenue.price}/Jam</h2>
-                                <h2 className="text-base  font-bold leading-7 ">Category Olahraga : <span className="text-indigo-600">{DataVenue.category.name}</span></h2>
+                                <h2 className="text-xl  font-bold leading-7 text-red-600">Rp. {DataVenue.price.toLocaleString("id-ID")}/Jam</h2>
+                                <h2 className="text-base  font-bold leading-7 ">Category Olahraga : <span className="text-indigo-600">{DataVenue.category?.name}</span></h2>
 
                                 <h2 className="text-base  font-bold leading-7 ">Status : <span className="text-indigo-600">{DataVenue.status}</span></h2>
 
@@ -311,25 +321,25 @@ const DetailVenue = ({DataVenue}) => {
                                                 <dl className="divide-y divide-gray-100">
                                                     <div className="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                                         <dt className="text-sm font-bold  leading-6 text-gray-900">Domisili</dt>
-                                                        <dd className="mt-1  text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{DataVenue.org.province} - {DataVenue.org.city}</dd>
+                                                        <dd className="mt-1  text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{DataVenue.org?.province} - {DataVenue.org?.city}</dd>
                                                     </div>
                                                     <div className="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                                         <dt className="text-sm font-bold leading-6 text-gray-900">Contact Booking</dt>
-                                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">WA {DataVenue.org.phone}</dd>
+                                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">WA {DataVenue.org?.phone}</dd>
                                                     </div>
                                                     <div className="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                                         <dt className="text-sm font-bold leading-6 text-gray-900">Email address</dt>
-                                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{DataVenue.org.email}</dd>
+                                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{DataVenue.org?.email}</dd>
                                                     </div>
                                                     <div className="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                                         <dt className="text-sm font-bold leading-6 text-gray-900">Alamat Lengkap</dt>
                                                         <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                                                            {DataVenue.org.address}
+                                                            {DataVenue.org?.address}
                                                         </dd>
 
                                                         <button
                                                             className="text-black border border-black hover:bg-gray-200 dark:text-gray-100 dark:border-gray-100 hover:bg-opacity-10 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-1.5 text-center inline-flex items-center mr-2 mb-2"
-                                                            onClick={() => handleCityClick(DataVenue.org.maps_url)}
+                                                            onClick={() => handleCityClick(DataVenue.org?.maps_url)}
                                                         >
                                                             <svg
                                                                 className="w-4 h-4 mr-2 -ml-1"
@@ -454,12 +464,20 @@ const DetailVenue = ({DataVenue}) => {
                         <div className=" bottom-0 mt-100  left-0 w-full flex justify-center">
                             <button
                                 type="button"
-                                onClick={() => handleBookClick(DataVenue.org.phone)}
+                                onClick={() => handleBookClick(DataVenue.org?.phone)}
                                 className="mt-100  text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-green-700 dark:focus:ring-green-400 mr-2 mb-2"
                             >
                                 <FaWhatsapp className="text-white mr-2" size={24} />
-                                Booking / Tanya  Sekarang
+                                Chat / Booking Lapangan
                             </button>
+
+                            <WhatsappShareButton
+                                url={FullURL}
+                                // title={DataVenue.org?.maps_url}
+                                separator=" "
+                            >
+                                <WhatsappIcon size={48} round />
+                            </WhatsappShareButton>
 
 
 

@@ -113,7 +113,7 @@ const Home: React.FC<HomeProps> = ({ListCategory, ListVenue, error}) => {
                                                     {product.org.name}
 
                                                 </h2>
-                                                <p className="text-sm font-bold text-red-700">Rp. {product.price}</p>
+                                                <p className="text-sm font-bold text-red-700">Rp. {product.price.toLocaleString("id-ID")}</p>
                                                 <p className="mt-1 text-sm  text-gray-500">{product.org.city}</p>
                                             </div>
 
