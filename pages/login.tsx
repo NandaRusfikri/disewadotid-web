@@ -16,7 +16,7 @@ export default function Login() {
             alert("Please enter information");
         } else {
             login(email, password)
-                .then((res) => router.push("/[org_name]"))
+                .then((res) => router.push("/"))
                 .catch((e) => alert(e));
         }
     };

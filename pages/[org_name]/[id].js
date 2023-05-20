@@ -208,71 +208,78 @@ const DetailVenue = ({DataVenue,FullURL}) => {
 
                 <div className="grid grid-cols-8 gap-2">
                     <div className="lg:col-start-3 lg:col-end-7 col-span-8  border-2 rounded-md border-neutral-900">
-                        <div className="relative">
 
 
-                            <div className="relative flex justify-center ">
-                                <div className=" lg:w-full  w-full lg:h-[55vh] h-[35vh] ">
-                                    <Swipe
-                                        onSwipeLeft={handleNextSlide}
-                                        onSwipeRight={handlePrevSlide}
-                                        className=" relative z-1 w-full h-full"
-                                    >
-                                        {DataVenue.photos?.map((image, index) => {
-                                            if (index === currentSlide) {
+
+                        <div className="relative flex justify-center ">
+                            <div className="lg:w-full w-full lg:h-[55vh] h-[35vh]">
+                                <Swipe
+                                    onSwipeLeft={handleNextSlide}
+                                    onSwipeRight={handlePrevSlide}
+                                    className="relative z-1 w-full h-full"
+                                >
+                                    {/* Kode gambar-gambar */}
+                                    {DataVenue.photos?.map((image, index) => {
+                                        if (index === currentSlide) {
+                                            return (
+                                                <Image
+                                                    key={image.id}
+                                                    src={process.env.pathimage + image.path_photo}
+                                                    fill
+                                                    className="animate-fadeIn"
+                                                    alt={process.env.pathimage + image.path_photo}
+                                                />
+                                            );
+                                        }
+                                    })}
+
+                                    {/* Bullets untuk navigasi */}
+                                    <div className="absolute text-3xl bottom-2 left-1/2 -translate-x-1/2">
+                                        <div className="relative flex justify-center p-2">
+                                            {DataVenue.photos?.map((_, index) => {
                                                 return (
-                                                    <Image
-                                                        key={image.id}
-                                                        src={process.env.pathimage + image.path_photo}
-                                                        fill
-                                                        className="animate-fadeIn  "
-                                                        alt={process.env.pathimage + image.path_photo}
+                                                    <div
+                                                        className={
+                                                            index === currentSlide
+                                                                ? "h-6 w-6 bg-black rounded-full mx-2 cursor-pointer border-2 border-black"
+                                                                : "h-6 w-6 bg-gray-200 rounded-full mx-2 cursor-pointer border-2 border-stone-900"
+                                                        }
+                                                        key={index}
+                                                        onClick={() => {
+                                                            setCurrentSlide(index);
+                                                        }}
                                                     />
                                                 );
-                                            }
-                                        })}
-
-                                        <div className="absolute text-3xl  bottom-2 left-1/2 -translate-x-1/2">
-                                            <div className="relative flex justify-center p-2">
-                                                {DataVenue.photos?.map((_, index) => {
-                                                    return (
-                                                        <div
-                                                            className={
-                                                                index === currentSlide
-                                                                    ? "h-6 w-6 bg-black rounded-full mx-2  cursor-pointer border-2 border-black"
-                                                                    : "h-6 w-6 bg-gray-200 rounded-full mx-2  cursor-pointer border-2 border-stone-900"
-                                                            }
-                                                            key={index}
-                                                            onClick={() => {
-                                                                setCurrentSlide(index);
-                                                            }}
-                                                        />
-                                                    );
-                                                })}
-
-                                            </div>
+                                            })}
                                         </div>
+                                    </div>
+
+                                    {/* Button WhatsappShare */}
 
 
-                                    </Swipe>
-
-
-                                </div>
-
+                                </Swipe>
 
                             </div>
 
-
                         </div>
+
+
+
+
                         <div className="mx-auto max-w-7xl px-2 ">
                             <div className=" ">
                                 <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                                     {DataVenue.org?.name}
                                 </p>
                                 <h2 className="text-xl  font-bold leading-7 text-red-600">Rp. {DataVenue.price.toLocaleString("id-ID")}/Jam</h2>
-                                <h2 className="text-base  font-bold leading-7 ">Category Olahraga : <span className="text-indigo-600">{DataVenue.category?.name}</span></h2>
+                                <h2 className="text-base  font-bold leading-7 ">Kategori Olahraga : <span className="text-indigo-600">{DataVenue.category?.name}</span></h2>
 
-                                <h2 className="text-base  font-bold leading-7 ">Status : <span className="text-indigo-600">{DataVenue.status}</span></h2>
+                                <h2 className="text-base  font-bold leading-7 ">Share  : </h2>
+                                <div className=" bottom-1 right-2 z-10">
+                                    <WhatsappShareButton url={FullURL} title={' '} separator=" ">
+                                        <WhatsappIcon size={48} round />
+                                    </WhatsappShareButton>
+                                </div>
 
                             </div>
                         </div>
@@ -471,13 +478,7 @@ const DetailVenue = ({DataVenue,FullURL}) => {
                                 Chat / Booking Lapangan
                             </button>
 
-                            <WhatsappShareButton
-                                url={FullURL}
-                                title={' '}
-                                separator=" "
-                            >
-                                <WhatsappIcon size={48} round />
-                            </WhatsappShareButton>
+
 
 
 
